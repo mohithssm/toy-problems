@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script>
+		function validateForm() {
+			var email = document.getElementById('username');
+			var pwd = document.getElementById('password');
+			var lowerCaseLetters = /[a-z]/g;
+			var upperCaseLetters = /[A-Z]/g;
+			var numbers = /[0-9]/g;
+			var filter = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+			var strongRegex = /^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#\$%\^&\*])(?=.{6,})/;
+		
+			if (!filter.test(email.value) && !strongRegex.test(pwd.value)) {
+				alert('Please provide a valid email address and password');
+				email.focus;
+				pwd.focus;
+				return false;
+			}
+			if (!filter.test(email.value)) {
+				alert('Please provide a valid email address');
+				email.focus;
+				return false;
+			}
+		
+			if (!pwd.value.match(lowerCaseLetters) || !pwd.value.match(upperCaseLetters) || !pwd.value.match(numbers) || !pwd.value.length >= 6) {
+				alert('Your password should have minimum of six letters, one lowercase letter, one Uppercase Letter and one Number');
+				return false;
+			} 
+		}
+	</script>
+
+	<title>registration form</title>
+
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<meta charset="utf-8">
+
+	<style>
+	input[type=text], input[type=password], input[type=Email], select {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid rgba(196, 196, 196, 0.658);
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	input[type=submit] {
+		width: 100%;
+		background-color: #4CAF50;
+		color: rgba(199, 189, 189, 0.664);
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	input[type=submit]:hover {
+	background-color: #85ff8be8;
+	}
+
+	div {
+	border-radius: 5px;
+	/* background-color: #f2f2f2; */
+	padding: 20px;
+	}
+	.fixed-header, .fixed-footer {
+		width: 100%;
+		position: fixed;        
+		background: #333;
+		padding: 10px 0;
+		color: #fff;
+		}
+		.fixed-header{
+			top: 0;
+		}
+		.fixed-footer{
+			bottom: 0;
+		}
+		.card-block {
+			padding: 5%;
+			position: fixed;
+			border: groove;
+			/* border-color: aqua; */
+			top: 20%;
+			left: 20%;
+			width: 60%;
+		}
+		.container {
+		padding: 16px;
+		}
+
+		.btn {
+			position: relative;
+			left: 35%;
+			background-color: rgb(253, 255, 163);
+			border-radius: 5px;
+			border: none;
+			color: black;
+			padding: 10px 40px;
+			text-align: center;
+			font-size: 16px;
+			margin: 4px 2px;
+			transition: 0.3s;
+		}
+
+		.btn:hover {
+			background-color: #ff8a3c;
+			color: white;
+		}
+		body{
+			background-color: #91ff96ee;
+			background-position: 100%;
+		}
+		h4{
+			text-align: center;
+			color:firebrick;
+			position: relative;
+		}
+	</style>
+</head>
+
+<body>
+
+     <div class="fixed-header">
+     <div class="container">
+        <h1 align="center"><b>Registration Form</b></h1>
+
+    </div>
+     </div>		
+	<br>
+        <div class="container">
+
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form action="{{url_for('register')}}" onsubmit="return validateForm()" method="POST">
+							<label for="username"><b>Name/Email</b></label>
+							<input type="email" id="username" name="username" placeholder="Enter UserName">
+							<br>
+							<br>
+							<br>
+							<label for="password"><b>Password</b></label>
+							<input type="password" id="password" name="password" placeholder="Enter Password">
+							<br>
+							<br>
+							<br>
+
+							<button class="btn" type="submit">Register</button>
+					      	<button class="btn" type="submit" formaction="/auth">Login</button>
+
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <h4>{{ message }}</h4>
+
+            </div>
+
+        </div>
+
+</body>
+</html>
+
